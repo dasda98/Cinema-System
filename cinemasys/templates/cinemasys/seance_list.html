@@ -1,0 +1,40 @@
+{% extends "cinemasys/base.html" %}
+{% block content %}
+<div style="margin-left: 17px">
+  <form method="get">
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+</div>
+<ul class="list-group container">
+  {% for seance in filter.qs %}
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col">
+        <div class="card mb-1" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-2">
+              <img src="{{ seance.movie_idmovie.image.url }}" style="height:150px;" alt="...">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <h5 class="card-title">{{ seance.movie_idmovie.title }}</h5>
+                <p class="card-text">Runtime: {{ seance.hour }} |
+                  Age limit: {{ seance.movie_idmovie.age_limit }} |
+                  Type: {{ seance.movie_idmovie.type }} |
+                  Year of production: {{ seance.movie_idmovie.year_of_production }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <p class="text-center">
+          <a href="{% url 'buyticket' seance.id %}" class="tooltip-test" title="Buy ticket">{{ seance.hour }}</a>
+        </p>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'cinemasys/base.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+              <img src="{{ seance.movie_idmovie.image.url }}" class="card-img" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h1 class="card-title">{{ seance.movie_idmovie.title }}</h1>
+              <p class="card-text">{{ seance.movie_idmovie.type }}</p>
+              <p class="card-text">Runtime: {{ seance.movie_idmovie.duration }}</p>
+              <p class="card-text">Year of production: {{ seance.movie_idmovie.year_of_production }}</p>
+              <p class="card-text">From: {{ seance.movie_idmovie.country }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="col">
+  <form class="container" method="POST">{% csrf_token %}
+    <table class="container">
+      {{form.as_table}}
+    </table>
+    <div class="form-group">
+      <label for="controlSelect">Select type of ticket</label>
+      <select class="form-control" id="controlSelect" name="controlS">
+        {% for type in type_of_ticket %}
+        <option value={{ type.id }}>{{ type.type }} {{ type.price }} $</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <div style="width: 300px; height: 30px; background-color: lightgray">
+        <p style="text-align:center">Screen</p>
+      </div>
+      <script type="text/javascript">
+      var seats2d = new Array(6);
+
+      var seats_disables = [];
+      {% for seats in ticket_seats %}
+        seats_disables.push("{{seats.row}}{{seats.col}}");
+      {% endfor %}
+
+      for (var i = 0; i < seats2d.length; i++) {
+          seats2d[i] = [];
+      }
+
+      for (var i = 0; i < 6; i++) {
+          for (var j = 0; j < 6; j++) {
+              seats2d[i][j] = 0;
+          }
+      }
+
+      for (var i = 0; i < seats_disables.length; i++) {
+        seats2d[seats_disables[i][0]][seats_disables[i][1]] = 1;
+      }
+
+      {% for row in '012345'|make_list %}
+        document.write('<div class="input-group mb-3" style="margin-left:90px">');
+        {% for col in '012345'|make_list %}
+            document.write('<div class="form-check">');
+            if (seats2d["{{row}}"]["{{col}}"] == 0) {
+              document.write('<input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="checkBoxSeat" value={{row}}{{col}} aria-label="..." >');
+            } else {
+              document.write('<input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="checkBoxSeat" value={{row}}{{col}} aria-label="..." disabled checked> ');
+            }
+            document.write('</div>');
+            {% endfor %}
+        document.write('</div>');
+      {% endfor %}
+      </script>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "cinemasys/base.html" %}
+{% block content %}
+<div class="container">
+  <h4>Price list</h4>
+  <table class="table table-striped">
+    <tbody>
+      {% for type in type_list %}
+      <tr>
+        <td>{{ type.type }}</td>
+        <td>
+          <h5>{{ type.price }} $</h5>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
