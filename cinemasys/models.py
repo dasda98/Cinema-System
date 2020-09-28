@@ -1,4 +1,8 @@
 from django.db import models
+from datetime import timedelta
+from django.forms import ValidationError
+from django.contrib import admin
+
 """
 class Login(models.Model):
     password = models.CharField(max_length=45)
@@ -42,6 +46,26 @@ class Seance(models.Model):
     hour = models.CharField(max_length=5)
     movie_idmovie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     hall_idhall = models.ForeignKey(Hall, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        check_variable = []
+        for seance in Seance.objects.all():
+            # Checking date, hall_id and start/end time between
+            if self.date == seance.date and \
+            timedelta(hours=int(self.hour.split(':')[0]), minutes=int(self.hour.split(':')[1])).total_seconds()/60 <= \
+            timedelta(hours=int(seance.hour.split(':')[0]), minutes=int(seance.hour.split(':')[1])).total_seconds()/60 <= \
+            timedelta(hours=int(self.hour.split(':')[0]), minutes=int(self.hour.split(':')[1])).total_seconds()/60 + timedelta(minutes=int(self.movie_idmovie.duration.split(' ')[0])).total_seconds()/60 or \
+            timedelta(hours=int(self.hour.split(':')[0]), minutes=int(self.hour.split(':')[1])).total_seconds()/60 <= \
+            timedelta(hours=int(seance.hour.split(':')[0]), minutes=int(seance.hour.split(':')[1])).total_seconds()/60 + timedelta(minutes=int(seance.movie_idmovie.duration.split(' ')[0])).total_seconds()/60 <= \
+            timedelta(hours=int(self.hour.split(':')[0]), minutes=int(self.hour.split(':')[1])).total_seconds()/60 + timedelta(minutes=int(self.movie_idmovie.duration.split(' ')[0])).total_seconds()/60 and \
+            self.hall_idhall == seance.hall_idhall:
+                check_variable.append(False)
+            else:
+                check_variable.append(True)
+        if False not in check_variable:
+            super(Seance, self).save(*args, **kwargs)
+        else:
+            raise ValidationError("The session cannot be at the same date, time and in the same room as another.")
 
 
 class Reservations(models.Model):
