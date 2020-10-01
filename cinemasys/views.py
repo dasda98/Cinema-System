@@ -62,9 +62,9 @@ def BuyTicketView(request, seance_id):
                        seance.date,
                        seance.hour,
                        seance.hall_idhall.hall_name,
-                       ticket.row, ticket.col)
+                       int(ticket.row)+1, int(ticket.col)+1)
             plain_message = strip_tags(content)
-            send_mail(subject, plain_message, "test.django98@gmail.com", [client.email], html_message=content)
+            send_mail(subject, plain_message, "YOUR E-MAIL", [client.email], html_message=content)
             return render(request, 'cinemasys/buy_ticket_success.html')
     else:
         form_class = ClientForm

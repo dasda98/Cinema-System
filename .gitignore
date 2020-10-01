@@ -138,12 +138,11 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
-# Project folders and files
+# Project folders and files\
 manage.py
 db.sqlite3
-settings.py
 migrations/
-media/
+media/images/*
 static/
-
+mysite/
 # End of https://www.toptal.com/developers/gitignore/api/python
