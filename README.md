@@ -8,4 +8,7 @@ Sqlite3
 #### Model
 ![My app model](myapp_models.png)
 ## Comments
-*You only can "buy" one ticket.
+* You only can "buy" one ticket.
+* You need to set up an email in views.py and configure smtp in settings.py
+* <span style="color:red">**This is an apllication there**</span>.
+
