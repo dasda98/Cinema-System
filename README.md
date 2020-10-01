@@ -7,3 +7,5 @@ In order to reserve a seat in the cinema, the user must complete the form and se
 Sqlite3
 #### Model
 ![My app model](myapp_models.png)
+## Comments
+*You only can "buy" one ticket.
