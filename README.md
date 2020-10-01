@@ -10,5 +10,5 @@ Sqlite3
 ## Comments
 * You only can "buy" one ticket.
 * You need to set up an email in views.py and configure smtp in settings.py
-* <span style="color:red">*This is an apllication there*</span>.
+* <span style="color:red">**This is an apllication here not project**</span>.
 
