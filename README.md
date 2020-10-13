@@ -7,6 +7,13 @@ In order to reserve a seat in the cinema, the user must complete the form and se
 Sqlite3
 #### Model
 ![My app model](myapp_models.png)
+## Example images
+### main window
+![Main window](main.png)
+### Repertoire window
+![Repertoire window](repertoire.png)
+### Reservation window
+![Reservation window](reservation.png)
 ## Comments
 * You only can "buy" one ticket.
 * You need to set up an email in views.py and configure smtp in settings.py
