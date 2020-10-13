@@ -11,4 +11,6 @@ Sqlite3
 * You only can "buy" one ticket.
 * You need to set up an email in views.py and configure smtp in settings.py
 * <span style="color:red">**This is an apllication here not project**</span>.
-
+## References
+https://docs.djangoproject.com/en/3.1/
+https://github.com/lmirkowski/Projekt-KINO-mysql/blob/master/kino_erd.pdf
